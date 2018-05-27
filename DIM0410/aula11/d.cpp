@@ -2,21 +2,28 @@
 using namespace std;
 
 #define pb push_back
-
+#define mp make_pair
 #define sort_ar() sort(ar.begin(), ar.end());
 #define sort_ar_inv() sort(ar.begin(), ar.end(), greater<>);
+#define FAST() ios_base::sync_with_stdio(false)
+//g++ -o test -std=c++17 a.cpp
 
-vector<pair<double, double>> ar;
+typedef long long ll;
+const int INF = 0x3f3f3f3f;
 
 int main(){
- 	double n, l, w;
+ 	int n, l;
+  double w;
+
+  FAST();
 
 	while(cin >> n >> l >> w){
-		for(int i = 0; i < n; ++i){
+    vector<pair<double, double>> ar;
+    w /= 2.0;
+
+  	for(int i = 0; i < n; ++i){
 			int pos, raio;
 			cin >> pos >> raio;
-
-      w /= 2.0;
 
       if(raio > w){
         double range = sqrt((double)raio*raio - w*w);
@@ -26,43 +33,37 @@ int main(){
       }
 		}
 
-		sort_ar();
-		//sort(ar.begin() + 1, ar.end());
+    sort_ar();
 
-		double index = 0, vis = 0;
-		int ans = 0, last = 0;
-		int i = 0;
-		while(vis < l){
-			bool test = false;
-			double aux = index;
+    int ans = 0;
+    double index = 0;
 
-			//vector<pair<double, double>>::iterator it = ar.begin();
-			//int test = 0;
-			for(; i < ar.size(); ++i){
-					//cout << ar[i].first << " " << ar[i].second << endl;
-					if(ar[i].first > index){
-						break;
-					}
+    for(int i = 0; index < l; i++){
+      bool flag = false;
+      double r_max = index;
+      for(int j = 0; j < ar.size(); j++){
+        if(ar[j].first > index) break;
 
-					if(ar[i].second >= aux){
-						aux = ar[i].second;
-						test = true;
-					}
-				}
+        if(ar[j].second > r_max){
+          r_max = ar[j].second;
+          flag = true;
+        }
+      }
 
-				if(test == false)
-					break;
+      index = r_max;
 
-				++ans;
-				vis = index = aux;
-			}
+      if(flag){
+        ans++;
+      } else {
+        break;
+      }
+    }
 
-			//cout << "vis " << vis << endl;
-			if(vis < l)
-				cout << "-1" << endl;
-			else
-				cout << ans << endl;
-		}
+    if(index >= l)
+      cout << ans << endl;
+    else
+      cout << "-1" << endl;
+    }
 
 	return 0;
 }
