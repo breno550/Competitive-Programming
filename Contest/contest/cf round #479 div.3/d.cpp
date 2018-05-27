@@ -3,6 +3,6 @@ using namespace std;
 
 int main(){
 	int n;
-	long long int num;
+	long long num;
 	return 0;
 }
