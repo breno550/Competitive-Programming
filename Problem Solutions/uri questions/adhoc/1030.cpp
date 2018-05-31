@@ -11,11 +11,10 @@ using namespace std;
 typedef long long ll;
 const int INF = 0x3f3f3f3f;
 
-//vector<int> ar;
-
 int main(){
   int nc;
 
+  FAST();
   cin >> nc;
 
   int test = 1;
@@ -33,13 +32,16 @@ int main(){
       ar.pb(i);
     }
 
-    for(int i = 0; ar.size() > 1; i = (i + k) % ar.size()){
-      if(ar.size() == 1) break;
+    for(int i = k; ar.size() > 1; i += k){
+      int size = ar.size();
+      while(i >= size){
+          i = abs(i - size);
+      }
 
       if(i > 0)
-      ar.erase(ar.begin() + i - 1);
+        ar.erase(ar.begin() + (--i));
       else
-      ar.pop_back();
+        ar.pop_back();
     }
 
     cout << ar[0] << endl;
